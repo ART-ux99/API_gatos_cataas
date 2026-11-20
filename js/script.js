@@ -26,7 +26,18 @@ function cargarGato() {
 
         var img_gato = data.url;
         $("#gato").attr("src", img_gato);
+
+        //reto 2: etiquetas. Tenemos que comprobar que hay etiquetas.
+        if(data.tags.length > 0){
+            $("#etiquetas").text("Etiquetas: " + data.tags.join(", "))
+        } else {
+            $("#etiquetas").text("Este gato no está etiquetado.");
+        }
     })
+
+    .catch(function() {
+        $("#estado").text("No se ha podido cargar el gato. Disculpe las molestias.")
+    }) 
   
 }
 
@@ -39,6 +50,10 @@ $("#otro").on("click", cargarGato);
    - Cuando la imagen #gato termine de cargar (evento "load"), vacía #estado.
    - Añade un .catch() que escriba un mensaje de error en #estado. */
 
+   $("#gato").on("load", function() {
+    console.log("Imagen cargada!");
+    $("#estado").text("Cargando...");
+   })
 
 /* RETO 2 · Las etiquetas
    datos.tags es un array con las etiquetas del gato.
