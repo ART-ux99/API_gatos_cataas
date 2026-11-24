@@ -60,16 +60,32 @@ $("#otro").on("click", cargarGato);
    - Escríbelas en #etiquetas separadas por comas (pista: .join(", ")).
    - Si el array está vacío, escribe "Este gato no tiene etiquetas". */
 
-
-
-
 /* RETO 3 · Un gato que habla
    Al enviar #form-habla (evento "submit", con preventDefault):
    - Lee el texto de #texto con .val().
    - Pide https://cataas.com/cat/says/TEXTO?json=true
      (prepara el texto con encodeURIComponent()).
    - Pon la foto en #gato-habla. */
+   $("#form-habla").on("submit", function(event) {
+      
+      event.preventDefault();
+      var texto = $("#texto").val();
 
+      if(texto === "") {
+         return;
+      }
+
+      var url = "https://cataas.com/cat/says/" + encodeURIComponent(texto) + "?json=true";
+      
+      fetch(url)
+         .then(function(response) {
+            return response.json();
+         })
+
+         .then(function(data) {
+           $("#gato-habla").attr("src", data.url);
+         });
+   });
 
 
 
