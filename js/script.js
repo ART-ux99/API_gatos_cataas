@@ -88,7 +88,6 @@ $("#otro").on("click", cargarGato);
    });
 
 
-
 /* RETO 4 · Gatos por etiqueta
    Crea una función cargarGatoEtiqueta() que:
    - Lea la etiqueta elegida en el select con $("#etiqueta").val().
@@ -97,7 +96,27 @@ $("#otro").on("click", cargarGato);
    Llámala cuando cambie el select (evento "change") y al hacer
    clic en #otro-etiqueta, para ver más gatos de esa etiqueta. */
 
+   $("#etiqueta").on("change", cargarGatoEtiqueta);
+   $("#otro-etiqueta").on("click", cargarGatoEtiqueta);
 
+   function cargarGatoEtiqueta() {
+     var etiqueta = $("#etiqueta").val();
+
+     if(etiqueta === "") {
+      return;
+     }
+
+     var url = "https://cataas.com/cat/" + etiqueta + "?json=true";
+
+     fetch(url)
+         .then(function(response) {
+            return response.json();
+         })
+         .then(function(data) {
+            console.log(data);
+            $("#gato-etiqueta").attr("src", data.url);
+         })
+   }
 
 
 /* RETO 5 · Una galería
