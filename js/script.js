@@ -115,7 +115,7 @@ $("#otro").on("click", cargarGato);
          .then(function(data) {
             console.log(data);
             $("#gato-etiqueta").attr("src", data.url);
-         })
+         });
    }
 
 
