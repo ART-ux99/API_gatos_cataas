@@ -140,7 +140,7 @@ $("#otro").on("click", cargarGato);
             $("#galeria").append('<img src="'+ url +'"alt="">');
          }
       }) 
-      //Extra: que el usuario pueda cambiar el número de gatos que s epiden a la API.
+      //Extra: que el usuario pueda cambiar el número de gatos que se le piden a la API.
       //Extra 2: que el usuario pueda cambiar el tag.
    })
 
@@ -153,4 +153,35 @@ $("#otro").on("click", cargarGato);
      Si es "gif",    pide https://cataas.com/cat/gif/says/TEXTO?json=true
    - Pon el resultado en #gato-gif.
    Extra: añade a la URL &fontColor=orange o &fontSize=40 y mira qué pasa. */
+ 
+   $("#form-git").on("submit", function(event) {
+      event.preventDefault();
 
+      var texto = $("#texto-gif").val();
+      var formato = $("#formato").val();
+
+      if(texto === "") {
+         return;
+      }
+
+      var url = "https://cataas.com/cat/"
+
+      if (formato === "gif") {
+
+         url = url + "gif/";
+      }
+
+      url = url + "says/" + encodeURIComponent(texto) + "?json=true";
+
+      fetch(url)
+         .then(function(response) {
+            return response.json();
+         })
+         .then(function(data) {
+            console.log(data);
+
+            $("#gato-gif").attr("src", data.url);
+         })
+
+
+   });
