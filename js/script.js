@@ -125,7 +125,24 @@ $("#otro").on("click", cargarGato);
    - Esta vez llega un ARRAY de gatos, y no traen url:
      la imagen de cada uno es https://cataas.com/cat/ + su id.
    - Recorre el array con un for y añade un <img> por gato en #galeria. */
+   $("#cargar-galeria").on("click", function() {
 
+      fetch("https://cataas.com/api/cats?tags=cute&limit=6")
+
+      .then (function(response) {
+         return response.json();
+      })
+      .then(function(data) {
+         $("#galeria").empty();
+
+         for( var i = 0; i < data.length; i++) {
+            var url = "https://cataas.com/cat/" + data[i].id;
+            $("#galeria").append('<img src="'+ url +'"alt="">');
+         }
+      }) 
+      //Extra: que el usuario pueda cambiar el número de gatos que s epiden a la API.
+      //Extra 2: que el usuario pueda cambiar el tag.
+   })
 
 
 
